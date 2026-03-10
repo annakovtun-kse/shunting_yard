@@ -1,0 +1,14 @@
+/Users/annakovtun/Code/university/Algorithms/Algorithms/bin/Debug/net10.0/Algorithms
+/Users/annakovtun/Code/university/Algorithms/Algorithms/bin/Debug/net10.0/Algorithms.deps.json
+/Users/annakovtun/Code/university/Algorithms/Algorithms/bin/Debug/net10.0/Algorithms.runtimeconfig.json
+/Users/annakovtun/Code/university/Algorithms/Algorithms/bin/Debug/net10.0/Algorithms.dll
+/Users/annakovtun/Code/university/Algorithms/Algorithms/bin/Debug/net10.0/Algorithms.pdb
+/Users/annakovtun/Code/university/Algorithms/Algorithms/obj/Debug/net10.0/Algorithms.GeneratedMSBuildEditorConfig.editorconfig
+/Users/annakovtun/Code/university/Algorithms/Algorithms/obj/Debug/net10.0/Algorithms.AssemblyInfoInputs.cache
+/Users/annakovtun/Code/university/Algorithms/Algorithms/obj/Debug/net10.0/Algorithms.AssemblyInfo.cs
+/Users/annakovtun/Code/university/Algorithms/Algorithms/obj/Debug/net10.0/Algorithms.csproj.CoreCompileInputs.cache
+/Users/annakovtun/Code/university/Algorithms/Algorithms/obj/Debug/net10.0/Algorithms.dll
+/Users/annakovtun/Code/university/Algorithms/Algorithms/obj/Debug/net10.0/refint/Algorithms.dll
+/Users/annakovtun/Code/university/Algorithms/Algorithms/obj/Debug/net10.0/Algorithms.pdb
+/Users/annakovtun/Code/university/Algorithms/Algorithms/obj/Debug/net10.0/Algorithms.genruntimeconfig.cache
+/Users/annakovtun/Code/university/Algorithms/Algorithms/obj/Debug/net10.0/ref/Algorithms.dll
