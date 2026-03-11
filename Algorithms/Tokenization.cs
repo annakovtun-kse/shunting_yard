@@ -6,25 +6,14 @@ public class Tokenization
     public List<string> Tokenize(string input)
     {
         List<char> operators = ['-', '+', '*', '^', '/', '=', '^'];
-        
-        List<string> functions = ["sin", "cos", "max"];
         List<string> result = new List<string>();
         List<char> bufffer = new List<char>();
-        List<char> bufferForFunc = new List<char>();
-            
+        List<char> bufferLetter = new List<char>();
         foreach (var symbol in input)
         {
-
             if (Char.IsAsciiDigit(symbol) || symbol == '.' || symbol == ',')
             {
-                if (bufferForFunc.Count > 0)
-                {
-                    bufferForFunc.Add(symbol);
-                }
-                else
-                {
-                    bufffer.Add(symbol);
-                }
+                bufffer.Add(symbol);
             }
             else if (Char.IsWhiteSpace(symbol))
             {
@@ -32,41 +21,57 @@ public class Tokenization
             }
             else if (operators.Contains(symbol))
             {
-                if (symbol == '-' && bufffer.Count == 0 && (result.Count == 0 || operators.Contains(result.Last()[0])))
-                {
-                    bufffer.Add(symbol);
-                    continue;
-                }
-
+                // if (symbol == '-' && bufffer.Count == 0 && (result.Count == 0 || operators.Contains(result.Last()[0])))
+                // {
+                //     bufffer.Add(symbol);
+                //     continue;
+                // }
+                // if (bufffer.Count > 0)
+                // {
+                //     result.Add(string.Join("", bufffer));
+                //     bufffer.Clear();
+                // }
+                
                 if (bufffer.Count > 0)
                 {
                     result.Add(string.Join("", bufffer));
                     bufffer.Clear();
                 }
-
+                if (bufferLetter.Count > 0)
+                {
+                    result.Add(string.Join("", bufferLetter)); 
+                    bufferLetter.Clear();
+                }
                 result.Add(Convert.ToString(symbol));
+
             }
             else if (symbol == '(' || symbol == ')')
             {
-                if (symbol == '(' && functions.Contains(string.Join("", bufferForFunc)))
+                // if (bufffer.Count > 0)
+                // {
+                //     result.Add(string.Join("", bufffer));
+                //     bufffer.Clear();
+                // 
+                if (bufffer.Count > 0)
                 {
-                    result.Add(string.Join("", bufferForFunc));
-                    bufferForFunc.Clear();
+                    result.Add(string.Join("", bufffer));
+                    bufffer.Clear();
                 }
-                else
+                if (bufferLetter.Count > 0)
                 {
-                    if (bufffer.Count > 0)
-                    {
-                        result.Add(string.Join("", bufffer));
-                        bufffer.Clear();
-                    }
+                    result.Add(string.Join("", bufferLetter)); // Додаємо будь-яке слово (sin, cos чи просто x)
+                    bufferLetter.Clear();
                 }
                 result.Add(Convert.ToString(symbol));
             }
-            else if(Char.IsAsciiLetter(symbol))
+            else if (Char.IsAsciiLetter(symbol))
             {
-                
-                bufferForFunc.Add(symbol);
+                if (bufffer.Count > 0) 
+                {
+                    result.Add(string.Join("", bufffer));
+                    bufffer.Clear();
+                }
+                bufferLetter.Add(symbol);
             }
             else
             {
@@ -77,13 +82,6 @@ public class Tokenization
         {
             result.Add(string.Join("", bufffer));
         }
-        if (bufferForFunc.Count > 0)
-        {
-          result.Add(string.Join("", bufferForFunc));
-        }
         return result;
     }
 }
-        
-
-
