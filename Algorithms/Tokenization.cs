@@ -6,14 +6,25 @@ public class Tokenization
     public List<string> Tokenize(string input)
     {
         List<char> operators = ['-', '+', '*', '^', '/', '=', '^'];
+        
+        List<string> functions = ["sin", "cos", "max"];
         List<string> result = new List<string>();
         List<char> bufffer = new List<char>();
+        List<char> bufferForFunc = new List<char>();
             
         foreach (var symbol in input)
         {
+
             if (Char.IsAsciiDigit(symbol) || symbol == '.' || symbol == ',')
             {
-                bufffer.Add(symbol);
+                if (bufferForFunc.Count > 0)
+                {
+                    bufferForFunc.Add(symbol);
+                }
+                else
+                {
+                    bufffer.Add(symbol);
+                }
             }
             else if (Char.IsWhiteSpace(symbol))
             {
@@ -26,22 +37,36 @@ public class Tokenization
                     bufffer.Add(symbol);
                     continue;
                 }
+
                 if (bufffer.Count > 0)
                 {
                     result.Add(string.Join("", bufffer));
                     bufffer.Clear();
                 }
-                result.Add(Convert.ToString(symbol));
 
+                result.Add(Convert.ToString(symbol));
             }
             else if (symbol == '(' || symbol == ')')
             {
-                if (bufffer.Count > 0)
+                if (symbol == '(' && functions.Contains(string.Join("", bufferForFunc)))
                 {
-                    result.Add(string.Join("", bufffer));
-                    bufffer.Clear();
+                    result.Add(string.Join("", bufferForFunc));
+                    bufferForFunc.Clear();
+                }
+                else
+                {
+                    if (bufffer.Count > 0)
+                    {
+                        result.Add(string.Join("", bufffer));
+                        bufffer.Clear();
+                    }
                 }
                 result.Add(Convert.ToString(symbol));
+            }
+            else if(Char.IsAsciiLetter(symbol))
+            {
+                
+                bufferForFunc.Add(symbol);
             }
             else
             {
@@ -51,6 +76,10 @@ public class Tokenization
         if (bufffer.Count > 0)
         {
             result.Add(string.Join("", bufffer));
+        }
+        if (bufferForFunc.Count > 0)
+        {
+          result.Add(string.Join("", bufferForFunc));
         }
         return result;
     }

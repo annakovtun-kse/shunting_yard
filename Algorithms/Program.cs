@@ -7,11 +7,11 @@ var t = new Tokenization();
 // }
 
 ShuntingYard sh = new ShuntingYard();
-List<string> tokenized = t.Tokenize("(7+8) * 5");
+List<string> tokenized = t.Tokenize("sin(p/2)");
 foreach (var tok in tokenized)
 {
-    Console.Write(tok);
+    Console.Write(tok + ".");
 }
-sh.ToRPN(tokenized);
-sh.QueueClass.ShowQueue();
-sh.Calculation(sh.QueueClass);
+// sh.ToRPN(tokenized);
+// sh.QueueClass.ShowQueue();
+// sh.Calculation(sh.QueueClass);
