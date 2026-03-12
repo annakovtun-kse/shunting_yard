@@ -1,22 +1,54 @@
 namespace Algorithms;
+using System.Globalization;
 public enum Associations { Left, Right }
 public class Operator
 {
     public int Precedence { get; set; }
     public Associations Associations { get; set; }
-    public Func<double, double, double> Calculate { get; set; }
+    public Func<List<float>, float> Calculate { get; set; }
 }
 
 public class WorkWithOperators
 {
     public static Dictionary<string, Operator> Operators = new()
     {
-        { "+", new Operator { Precedence = 2, Associations = Associations.Left, Calculate = ((a, b) => a + b) } },
-        { "-", new Operator { Precedence = 2, Associations = Associations.Left, Calculate = ((a, b) => a - b) } },
-        { "*", new Operator { Precedence = 3, Associations = Associations.Left, Calculate = ((a, b) => a * b) } },
-        { "/", new Operator { Precedence = 3, Associations = Associations.Left, Calculate = ((a, b) => a / b) } },
-        { "^", new Operator() { Precedence = 4, Associations = Associations.Right, Calculate = Math.Pow } }
+        {
+            "+",
+            new Operator { Precedence = 2, Associations = Associations.Left, Calculate = (args) => args[0] + args[1] }
+        },
+        {
+            "-",
+            new Operator { Precedence = 2, Associations = Associations.Left, Calculate = (args) => args[0] - args[1] }
+        },
+        {
+            "*",
+            new Operator { Precedence = 3, Associations = Associations.Left, Calculate = (args) => args[0] * args[1] }
+        },
+        {
+            "/",
+            new Operator { Precedence = 3, Associations = Associations.Left, Calculate = (args) => args[0] / args[1] }
+        },
+        {
+            "^",
+            new Operator
+                { Precedence = 4, Associations = Associations.Right, Calculate = args => (float)Math.Pow(args[0], args[1]) }
+        },
+        {
+            "sin",
+            new Operator()
+                { Precedence = 5, Associations = Associations.Right, Calculate = (args) => (float)Math.Sin(args[0]) }
+        },
+        {
+            "cos",
+            new Operator()
+                { Precedence = 5, Associations = Associations.Right, Calculate = (args) => (float)Math.Cos(args[0]) }
+        },
+        {
+            "max",
+            new Operator() { Precedence = 5, Associations = Associations.Right, Calculate = (args) => args.Max() }
+        }
     };
+
 }
 
 public class ShuntingYard
@@ -25,20 +57,20 @@ public class ShuntingYard
     public StackClass<string> StackClass { get; private set; } = new StackClass<string>();
     public QueueClass<string> QueueClass { get; private set; } = new QueueClass<string>();
 
-    public StackClass<double> stackForCalcul { get; private set; } = new StackClass<double>();
+    public StackClass<float> StackForCalcul { get; private set; } = new StackClass<float>();
+
     public void ToRPN(List<string> tokens)
     {
         foreach (var token in tokens)
         {
-            if (token.All(char.IsAsciiDigit))
+            if (float.TryParse(token, NumberStyles.Any, CultureInfo.InvariantCulture, out _))
             {
                 QueueClass.Enqueue(token);
-                
             }
             else if (token == "(")
             {
                 StackClass.Push(token);
-                
+
             }
             else if (token == ")")
             {
@@ -55,8 +87,10 @@ public class ShuntingYard
                 {
                     var operator1 = _operators[token];
                     var operator2 = _operators[StackClass.Peek()];
-                    if (operator1.Associations == Associations.Left && operator1.Precedence <= operator2.Precedence ||
-                        operator1.Associations == Associations.Right && operator1.Precedence <= operator2.Precedence)
+                    if (operator1.Associations == Associations.Left &&
+                        operator1.Precedence <= operator2.Precedence ||
+                        operator1.Associations == Associations.Right &&
+                        operator1.Precedence <= operator2.Precedence)
                     {
                         QueueClass.Enqueue(StackClass.Pop());
                     }
@@ -64,46 +98,72 @@ public class ShuntingYard
                     {
                         break;
                     }
-                } 
+                }
+
                 StackClass.Push(token);
             }
+            else if (token == ",")
+            {
+                while (StackClass.Count() > 0 && StackClass.Peek() != "(")
+                {
+                    QueueClass.Enqueue(StackClass.Pop());
+                }
+            }
+            else if (token.All(char.IsAsciiLetter))
+            {
+                QueueClass.Enqueue(token);
+            }
+            
         }
+
         while (StackClass.Count() > 0)
         {
             QueueClass.Enqueue(StackClass.Pop());
         }
     }
-    public double Calculation(QueueClass<string> rpn)
-    {
-        if (stackForCalcul.Count() <= 2)
+
+
+
+    public float Calculation(QueueClass<string> rpn)
         {
-            Console.WriteLine("Incorrect expression");
-            return 0.0;
-        }
-        while (rpn.Count() > 0)
-        {
-            string token = rpn.Dequeue();
-            if (token.All(char.IsAsciiDigit))
-            {
-                bool canParse = double.TryParse(token, out var num);
-                stackForCalcul.Push(num);
-            }
-            else if (_operators.ContainsKey(token))
-            {
-                double num1 = stackForCalcul.Pop();
-                double num2 = stackForCalcul.Pop();
-                double result = _operators[token].Calculate(num2, num1);
-                stackForCalcul.Push(result);
-            }
-            else
-            {
-                continue;
-            }
-        }
-        Console.WriteLine(stackForCalcul.Pop());
-        return stackForCalcul.Pop();
-    }
+            // if (StackForCalcul.Count() <= 2)
+            // {
+            //     Console.WriteLine("Incorrect expression");
+            //     return 0.0;
+            // }
     
-}
+            while (rpn.Count() > 0)
+            {
+                string token = rpn.Dequeue();
+                if (token.All(char.IsAsciiDigit))
+                {
+                    bool canParse = float.TryParse(token, out var num);
+                    StackForCalcul.Push(num);
+                }
+                else if (_operators.ContainsKey(token))
+                {
+                    List<float> buffer = new List<float>();
+                    // double num1 = stackForCalcul.Pop();
+                    // double num2 = stackForCalcul.Pop();
+                    // double result = _operators[token].Calculate(num2, num1);
+                    // stackForCalcul.Push(result);
+                    while (StackForCalcul.Count() > 0)
+                    {
+                        buffer.Add(StackForCalcul.Pop());
+                    }
+                    float result = _operators[token].Calculate(buffer);
+                    StackForCalcul.Push(result);
+                }
+                else
+                {
+                    continue;
+                }
+            }
+    
+            Console.WriteLine(StackForCalcul.Pop());
+            return StackForCalcul.Pop();
+        }
+    
+    }
 
 

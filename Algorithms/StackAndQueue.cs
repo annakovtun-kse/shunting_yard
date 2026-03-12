@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace Algorithms;
 
 public class StackClass<T>
@@ -41,8 +43,6 @@ public class StackClass<T>
         }
         
     }
-
-
 }
 
 public class QueueClass<T>
@@ -75,6 +75,5 @@ public class QueueClass<T>
 
     public int Count() => Queue.Count;
 
-
-
+    
 }

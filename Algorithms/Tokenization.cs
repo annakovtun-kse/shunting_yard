@@ -11,7 +11,7 @@ public class Tokenization
         List<char> bufferLetter = new List<char>();
         foreach (var symbol in input)
         {
-            if (Char.IsAsciiDigit(symbol) || symbol == '.' || symbol == ',')
+            if (Char.IsAsciiDigit(symbol) || symbol == '.')
             {
                 bufffer.Add(symbol);
             }
@@ -72,6 +72,12 @@ public class Tokenization
                     bufffer.Clear();
                 }
                 bufferLetter.Add(symbol);
+            }
+            else if (Convert.ToString(symbol) == ",")
+            {
+                result.Add(string.Join("", bufffer));
+                bufffer.Clear();
+                result.Add(Convert.ToString(symbol));
             }
             else
             {
