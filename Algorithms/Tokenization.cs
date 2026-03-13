@@ -21,16 +21,6 @@ public class Tokenization
             }
             else if (operators.Contains(symbol))
             {
-                // if (symbol == '-' && bufffer.Count == 0 && (result.Count == 0 || operators.Contains(result.Last()[0])))
-                // {
-                //     bufffer.Add(symbol);
-                //     continue;
-                // }
-                // if (bufffer.Count > 0)
-                // {
-                //     result.Add(string.Join("", bufffer));
-                //     bufffer.Clear();
-                // }
                 
                 if (bufffer.Count > 0)
                 {
@@ -47,11 +37,6 @@ public class Tokenization
             }
             else if (symbol == '(' || symbol == ')')
             {
-                // if (bufffer.Count > 0)
-                // {
-                //     result.Add(string.Join("", bufffer));
-                //     bufffer.Clear();
-                // 
                 if (bufffer.Count > 0)
                 {
                     result.Add(string.Join("", bufffer));
@@ -59,7 +44,7 @@ public class Tokenization
                 }
                 if (bufferLetter.Count > 0)
                 {
-                    result.Add(string.Join("", bufferLetter)); // Додаємо будь-яке слово (sin, cos чи просто x)
+                    result.Add(string.Join("", bufferLetter));
                     bufferLetter.Clear();
                 }
                 result.Add(Convert.ToString(symbol));

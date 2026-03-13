@@ -126,11 +126,6 @@ public class ShuntingYard
 
     public float Calculation(QueueClass<string> rpn)
         {
-            // if (StackForCalcul.Count() <= 2)
-            // {
-            //     Console.WriteLine("Incorrect expression");
-            //     return 0.0;
-            // }
     
             while (rpn.Count() > 0)
             {
@@ -143,10 +138,6 @@ public class ShuntingYard
                 else if (_operators.ContainsKey(token))
                 {
                     List<float> buffer = new List<float>();
-                    // double num1 = stackForCalcul.Pop();
-                    // double num2 = stackForCalcul.Pop();
-                    // double result = _operators[token].Calculate(num2, num1);
-                    // stackForCalcul.Push(result);
                     while (StackForCalcul.Count() > 0)
                     {
                         buffer.Add(StackForCalcul.Pop());
