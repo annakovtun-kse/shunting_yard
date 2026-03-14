@@ -1,13 +1,9 @@
-﻿using Algorithms;
+﻿using System.Collections;
+using Algorithms;
 
-var t = new Tokenization();
+Tokenizer tokenizer = new Tokenizer();
 ShuntingYard sh = new ShuntingYard();
-List<string> tokenized = t.Tokenize("max(1, 4, 800.6)");
-foreach (var tok in tokenized)
-{
-    Console.Write(tok);
-}
-
-sh.ToRPN(tokenized);
-var res = sh.QueueClass;
-res.ShowQueue();
+var input = tokenizer.Tokenize("sin(1/6)");
+sh.ToRPN(input);
+sh.QueueClass.ShowQueue();
+sh.Calculation(sh.QueueClass);
