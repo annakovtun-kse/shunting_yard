@@ -71,4 +71,19 @@ public class QueueClass<T>
     }
 
     public int Count() => Queue.Count();
+
+    public int IndexOf(T element)
+    {
+        return Queue.GetIndex(element);
+    }
+    
+    
+
+    public T this[int index]
+    {
+        get 
+        { 
+            return Queue.GetAt(index); 
+        }
+    }
 }

@@ -3,7 +3,12 @@ using Algorithms;
 
 Tokenizer tokenizer = new Tokenizer();
 ShuntingYard sh = new ShuntingYard();
-var input = tokenizer.Tokenize("sin(1/6)");
-sh.ToRPN(input);
+string expression = Console.ReadLine();
+var tokenizedExpression = new ArrayList<string>();
+if (expression != null)
+{
+    tokenizedExpression = tokenizer.Tokenize(expression);
+}
+sh.ToRPN(tokenizedExpression);
 sh.QueueClass.ShowQueue();
 sh.Calculation(sh.QueueClass);

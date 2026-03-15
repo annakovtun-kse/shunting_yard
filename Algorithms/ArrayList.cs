@@ -93,5 +93,10 @@ namespace Algorithms
                 throw new InvalidOperationException("Only numerical types");
             }
         }
+
+        public int GetIndex(T element)
+        {
+            return _array.IndexOf(element);
+        }
         }
     }

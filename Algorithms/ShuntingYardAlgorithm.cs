@@ -192,7 +192,6 @@ public class ShuntingYard
             {
                 Operator currentOperator = WorkWithOperators.GetOperator(token);
                 ArrayList<float> buffer = new ArrayList<float>();
-                
                 for (int i = 0; i < currentOperator.Arity; i++)
                 {
                     if (StackForCalcul.Count() > 0)
