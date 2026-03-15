@@ -1,17 +1,16 @@
-﻿using Algorithms;
+﻿using System.Collections;
+using Algorithms;
 
-var t = new Tokenization();
-// foreach (var symb in t.Tokenize("7+  3 +  4*  5"))
-// {
-//     Console.Write($"{symb}.");
-// }
-
+Tokenizer tokenizer = new Tokenizer();
 ShuntingYard sh = new ShuntingYard();
-List<string> tokenized = t.Tokenize("(7+8) * 5");
-foreach (var tok in tokenized)
+string expression = Console.ReadLine();
+var tokenizedExpression = new ArrayList<string>();
+if (expression != null)
 {
-    Console.Write(tok);
+    tokenizedExpression = tokenizer.Tokenize(expression);
 }
-sh.ToRPN(tokenized);
+
+tokenizedExpression.Show();
+sh.ToRPN(tokenizedExpression);
 sh.QueueClass.ShowQueue();
 sh.Calculation(sh.QueueClass);

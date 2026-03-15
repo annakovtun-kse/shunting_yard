@@ -12,3 +12,4 @@
 /Users/annakovtun/Code/university/Algorithms/Algorithms/obj/Debug/net10.0/Algorithms.pdb
 /Users/annakovtun/Code/university/Algorithms/Algorithms/obj/Debug/net10.0/Algorithms.genruntimeconfig.cache
 /Users/annakovtun/Code/university/Algorithms/Algorithms/obj/Debug/net10.0/ref/Algorithms.dll
+/Users/annakovtun/Code/university/Algorithms/Algorithms/obj/Debug/net10.0/Algorithms.sourcelink.json
