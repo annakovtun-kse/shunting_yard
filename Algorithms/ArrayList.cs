@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace Algorithms
 {
     using System;
@@ -98,5 +100,13 @@ namespace Algorithms
         {
             return _array.IndexOf(element);
         }
+
+        public void Show()
+        {
+            foreach (var el in _array)
+            {
+                Console.Write(el);
+            }
         }
+    }
     }

@@ -145,7 +145,7 @@ public class ShuntingYard
                     var operator2 = WorkWithOperators.GetOperator(StackClass.Peek());
                     
                     if (operator1.Associations == Associations.Left &&
-                        operator1.Precedence < operator2.Precedence ||
+                        operator1.Precedence <= operator2.Precedence ||
                         operator1.Associations == Associations.Right &&
                         operator1.Precedence < operator2.Precedence)
                     {

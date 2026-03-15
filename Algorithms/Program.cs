@@ -9,6 +9,8 @@ if (expression != null)
 {
     tokenizedExpression = tokenizer.Tokenize(expression);
 }
+
+tokenizedExpression.Show();
 sh.ToRPN(tokenizedExpression);
 sh.QueueClass.ShowQueue();
 sh.Calculation(sh.QueueClass);
